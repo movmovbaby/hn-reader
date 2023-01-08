@@ -1,7 +1,9 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 
 const Story = () => {
-  return <h1>Story</h1>
+  const { id } = useParams();
+  return <h1>{`Story ${id}`}</h1>
 };
 
 export default Story;
