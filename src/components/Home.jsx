@@ -4,7 +4,6 @@ import NewsList from "./NewsList.jsx";
 const Home = () => {
   return (
     <>
-      <h1>Home</h1>
       <NewsList />
     </>
   );

@@ -12,5 +12,5 @@ const storiesSlice = createSlice({
 })
 
 export const { actions } = storiesSlice;
-export const storiesSelectors = storiesAdapter.getSelectors((state) => state.stories);
+export const selectors = storiesAdapter.getSelectors((state) => state.stories);
 export default storiesSlice.reducer;
