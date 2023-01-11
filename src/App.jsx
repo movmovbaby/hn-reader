@@ -5,6 +5,8 @@ import { fetchStories, fetchTop100StoriesId } from './api/hn-api';
 import { actions as storiesActions } from './store/storiesSlice.js';
 import Header from './components/Header.jsx';
 import Home from './components/Home.jsx';
+import Main from './components/Main.jsx';
+import Footer from './components/Footer.jsx';
 import Story from './components/Story.jsx';
 
 const App = () => {
@@ -22,7 +24,7 @@ const App = () => {
   return (
     <>
       <Header />
-      <main>
+      <Main>
         <Switch>
           <Route exact path='/'>
             <Home />
@@ -31,7 +33,8 @@ const App = () => {
             <Story />
           </Route>
         </Switch>
-      </main>
+      </Main>
+      <Footer />
     </>
   );
 }
