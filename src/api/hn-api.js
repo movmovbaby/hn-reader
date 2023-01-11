@@ -14,7 +14,7 @@ export const fetchTop100StoriesId = async () => {
   try {
     const response = await fetch(routes.topStoriesPath());
     const ids = await response.json();
-    return ids.slice(0, 10);
+    return ids.slice(0, 15);
   } catch (error) {
     console.log('Fetch Top 100 ids error', error)
   }
@@ -28,3 +28,12 @@ export const fetchStories = async (ids) => {
     console.log('Fetch stories error', error)
   }
 };
+
+export const fetchComments = async (kids) => {
+  try {
+    const comments = await Promise.all(kids.map(fetchStory));
+    return comments;
+  } catch (error) {
+    console.log('Fetch comments error', error)
+  }
+}

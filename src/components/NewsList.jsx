@@ -8,8 +8,8 @@ const NewsList = () => {
 
   return stories && (
     <ul>
-      {stories.map(({ title, score, by, time, id }) => {
-        const date = new Date(time * 1000);
+      {stories.map(({ title, score, by, time, id, descendants }) => {
+        const date = new Date(time * 1000).toLocaleString('ru-RU');
         return (
           <li key={id}>
             <article>
@@ -19,7 +19,9 @@ const NewsList = () => {
                 &nbsp;|&nbsp;
                 <span>{by}</span>
                 &nbsp;|&nbsp;
-                <span>{date.toLocaleString('ru-RU')}</span>
+                <span>{date}</span>
+                &nbsp;|&nbsp;
+                <span>{descendants} comments</span>
               </Link>
             </article>
           </li>)
