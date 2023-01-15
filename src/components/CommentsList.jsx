@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Comment from './Comment.jsx';
 
-const CommentsList = ({ comments }) => {
+const CommentsList = ({ comments, visible }) => {
   return (
-    <ul>
+    <ul style={{ display: visible ? 'block' : 'none' }}>
       {comments.map((comment) => (
         <li key={comment.id}>
           <Comment comment={comment} />

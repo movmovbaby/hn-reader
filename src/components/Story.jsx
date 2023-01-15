@@ -16,7 +16,7 @@ const Story = () => {
       setComments(comments);
     };
     getComments();
-  }, [])
+  }, [kids]);
 
   const date = new Date(time * 1000).toLocaleString();
 
@@ -33,7 +33,7 @@ const Story = () => {
       &nbsp;|&nbsp;
       <p>{text}</p>
       <div>
-        <CommentsList comments={comments} />
+        <CommentsList comments={comments} visible />
       </div>
     </article>
   )
