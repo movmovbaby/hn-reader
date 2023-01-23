@@ -3,11 +3,11 @@ import { useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { fetchStories, fetchTop100StoriesId } from './api/hn-api';
 import { actions as storiesActions } from './store/storiesSlice.js';
-import Header from './components/Header.jsx';
+import Main from './components/Layout/Main.jsx';
+import Header from './components/Layout/Header.jsx';
+import Footer from './components/Layout/Footer.jsx';
 import Home from './components/Home.jsx';
-import Main from './components/Main.jsx';
-import Footer from './components/Footer.jsx';
-import Story from './components/Story.jsx';
+import Story from './components/Story/Story.jsx';
 
 const App = () => {
   const dispatch = useDispatch();
