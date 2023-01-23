@@ -1,10 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { selectors as storiesSelectors } from '../store/storiesSlice.js';
 
 const NewsList = () => {
+  const history = useHistory();
   const stories = useSelector(storiesSelectors.selectAll);
+  const handleClick = () => history.push('/');
 
   return stories && (
     <ul>
@@ -13,7 +15,7 @@ const NewsList = () => {
         return (
           <li key={id}>
             <article>
-              <Link to={`/story/${id}`}>
+              <Link to={`/story/${id}`} onClick={handleClick}>
                 <h2>{title}</h2>
                 <span>{score} points</span>
                 &nbsp;|&nbsp;

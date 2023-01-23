@@ -7,6 +7,7 @@ const storiesSlice = createSlice({
   initialState: storiesAdapter.getInitialState(),
   reducers: {
     addStory: storiesAdapter.addOne,
+    updateStory: storiesAdapter.updateOne,
     addStories: storiesAdapter.addMany,
   }
 })
