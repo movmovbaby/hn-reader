@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Footer = () => (
-  <footer>
+  <footer className="footer">
     <a href='news.ycombinator.com'>HN</a>
   </footer>);
 
