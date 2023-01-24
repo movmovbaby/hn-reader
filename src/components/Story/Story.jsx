@@ -16,6 +16,9 @@ const Story = () => {
 
   useEffect(() => {
     const getComments = async () => {
+      if (kids === undefined) {
+        return;
+      }
       const comments = await fetchComments(kids);
       setComments(comments);
     };
@@ -40,8 +43,6 @@ const Story = () => {
       <span>posted at {date}</span>
       &nbsp;|&nbsp;
       <span>by {by}</span>
-      &nbsp;|&nbsp;
-      <span>{descendants} comments</span>
       &nbsp;|&nbsp;
       <p>{text}</p>
       <div>

@@ -12,26 +12,26 @@ const NewsList = () => {
   const handleClick = () => history.push('/');
 
   return stories && (
-    <ul>
-      {stories.map(({ title, score, by, time, id, descendants }) => {
-        const date = dateFormat(time);
-        return (
-          <li key={id}>
-            <article>
-              <Link to={`/story/${id}`} onClick={handleClick}>
-                <h2>{title}</h2>
-                <span>{score} points</span>
-                &nbsp;|&nbsp;
-                <span>{by}</span>
-                &nbsp;|&nbsp;
-                <span>{date}</span>
-                &nbsp;|&nbsp;
-                <span>{descendants} comments</span>
-              </Link>
-            </article>
-          </li>)
-      })}
-    </ul>
+    <section className="news">
+      <ul className="news-list">
+        {stories.map(({ title, score, by, time, id, descendants }) => {
+          const date = dateFormat(time);
+          return (
+            <li key={id} className="news-list__item">
+              <article>
+                <Link to={`/story/${id}`} onClick={handleClick}>
+                  <h2>{title}</h2>
+                  <span>{score} points</span>
+                  &nbsp;|&nbsp;
+                  <span>{by}</span>
+                  &nbsp;|&nbsp;
+                  <span>{date}</span>
+                </Link>
+              </article>
+            </li>)
+        })}
+      </ul>
+    </section>
   )
 };
 
