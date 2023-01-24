@@ -2,16 +2,19 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { selectors as storiesSelectors } from '../store/storiesSlice.js';
+import { dateFormat } from '../utils.js';
 
 const NewsList = () => {
   const history = useHistory();
   const stories = useSelector(storiesSelectors.selectAll);
+  stories.sort((a, b) => a.time > b.time ? -1 : 1);
+
   const handleClick = () => history.push('/');
 
   return stories && (
     <ul>
       {stories.map(({ title, score, by, time, id, descendants }) => {
-        const date = new Date(time * 1000).toLocaleString('ru-RU');
+        const date = dateFormat(time);
         return (
           <li key={id}>
             <article>

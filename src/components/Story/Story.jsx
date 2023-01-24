@@ -4,6 +4,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { selectors as storiesSelectors, actions as storiesActions } from '../../store/storiesSlice.js';
 import { fetchComments, fetchStory } from '../../api/hn-api.js';
 import CommentsList from './CommentsList.jsx';
+import { dateFormat } from '../../utils.js';
 
 const Story = () => {
   const { id } = useParams();
@@ -21,7 +22,7 @@ const Story = () => {
     getComments();
   }, [kids]);
 
-  const date = new Date(time * 1000).toLocaleString();
+  const date = dateFormat(time);
 
   const updateEntity = async () => {
     const story = await fetchStory(id);

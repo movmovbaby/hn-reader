@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { fetchComments } from '../../api/hn-api.js';
 import CommentsList from './CommentsList.jsx';
+import { dateFormat } from '../../utils.js';
 
 const Comment = ({ comment }) => {
   const [subComments, setSubComments] = useState(null);
   const [isSubCommentsVisible, setSubCommentsVisible] = useState(false);
-  const date = new Date(comment.time * 1000).toLocaleString();
+  const date = dateFormat(comment.time);
   const kids = comment.kids;
 
   useEffect(() => {
@@ -28,7 +29,7 @@ const Comment = ({ comment }) => {
   return (
     comment.deleted ? null : (
       <div>
-        <span>{comment.by}</span>&nbsp;|
+        <span>{comment.by}</span>&nbsp;|&nbsp;
         <span>{date}</span>&nbsp;
         {subComments &&
           <button onClick={showComments}>More</button>
