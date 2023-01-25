@@ -1,0 +1,25 @@
+@import url('/src/styles/constants.css');
+
+.footer {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.item {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+.link {
+  color: var(--pink);
+  font-size: 1rem;
+}
+
+.text {
+  color: var(--textColor);
+}

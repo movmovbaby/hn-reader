@@ -16,7 +16,7 @@ const NewsList = () => {
     stories.map(({ title, score, by, time, id }, index) => {
       const date = dateFormat(time);
       return (
-        <article key={id} class={styles.news}>
+        <article key={id} className={styles.news}>
           <Link to={`/story/${id}`} onClick={handleClick} className={styles.link}>
             <div className={styles.rank}>{index + 1}.</div>
             <div className={styles.container}>
