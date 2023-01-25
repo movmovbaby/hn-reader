@@ -7,7 +7,7 @@ import Wrapper from './components/Layout/Wrapper/Wrapper';
 import Main from './components/Layout/Main/Main.jsx';
 import Header from './components/Layout/Header/Header.jsx';
 import Footer from './components/Layout/Footer/Footer.jsx';
-import Home from './components/Home.jsx';
+import Home from './components/Home/Home.jsx';
 import Story from './components/Story/Story.jsx';
 
 const App = () => {
