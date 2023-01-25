@@ -1,5 +1,7 @@
 :root {
   --bg-color: #282c35;
   --textColor: #fff;
+  --text-dark: #282c35;
   --pink: #ffa7c4;
+  --pink-hover: #f082ac;
 }

@@ -22,9 +22,9 @@ const NewsList = () => {
             <div className={styles.container}>
               <h3 className={styles.title}>{title}</h3>
               <div className={styles.meta}>
-                <small>{score} points</small>
-                <small>by {by}</small>
-                <small>posted at {date}</small>
+                <small className={styles.small}>{score} points</small>
+                <small className={styles.small}>by {by}</small>
+                <small className={styles.small}>posted at {date}</small>
               </div>
             </div>
           </Link>
