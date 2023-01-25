@@ -14,7 +14,8 @@ const Story = () => {
 
   const [comments, setComments] = useState([]);
   const { url, title, time, by, descendants, text, kids } = useSelector((state) => storiesSelectors.selectById(state, id));
-  const { hostname } = new URL(url);
+
+  const urlObj = typeof url === 'undefined' ? null : new URL(url);
 
   useEffect(() => {
     const getComments = async () => {
@@ -49,7 +50,9 @@ const Story = () => {
               ? null
               : <small className={styles['small-text']}>{descendants} comments</small>}
           </div>
-          <span className={styles['small-text']}>link to original post&nbsp;<a href={url} className={styles['small-link']}>{hostname}</a></span>
+          {urlObj &&
+            <span className={styles['small-text']}>link to original post&nbsp;<a href={url} className={styles['small-link']}>{urlObj.hostname}</a></span>
+          }
         </div>
         {text &&
           (<div className={styles.text} dangerouslySetInnerHTML={{ __html: text }} />)
