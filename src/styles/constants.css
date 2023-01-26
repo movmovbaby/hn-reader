@@ -1,0 +1,9 @@
+:root {
+  --bg-color: #282c35;
+  --textColor: #fff;
+  --text-dark: #282c35;
+  --pink: #ffa7c4;
+  --pink-hover: #f082ac;
+  --comment-meta-color: hsla(0, 0%, 100%, 0.88);
+  --light-animated-text: hsla(0, 0%, 100%, 0.88);
+}

@@ -14,7 +14,7 @@ export const fetchTop100StoriesId = async () => {
   try {
     const response = await fetch(routes.topStoriesPath());
     const ids = await response.json();
-    return ids.slice(0, 15);
+    return ids.slice(0, 100);
   } catch (error) {
     console.log('Fetch Top 100 ids error', error)
   }

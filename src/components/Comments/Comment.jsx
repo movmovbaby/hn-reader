@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { fetchComments } from '../../api/hn-api.js';
 import CommentsList from './CommentsList.jsx';
 import { dateFormat } from '../../utils.js';
+import styles from './Comments.module.css';
+
 
 const Comment = ({ comment }) => {
   const [subComments, setSubComments] = useState(null);
@@ -22,20 +24,23 @@ const Comment = ({ comment }) => {
   }, [kids]);
 
   const showComments = () => {
-    console.log('op')
-    setSubCommentsVisible(!isSubCommentsVisible)
+    setSubCommentsVisible(!isSubCommentsVisible);
   };
 
   return (
     comment.deleted ? null : (
-      <div>
-        <span>{comment.by}</span>&nbsp;|&nbsp;
-        <span>{date}</span>&nbsp;
-        {subComments &&
-          <button onClick={showComments}>More</button>
-        }
+      <div className={styles.comment}>
+        <div className={styles['comment-meta']}>
+          <span>{comment.by}</span>
+          <span>at {date}</span>
+          {subComments &&
+            <a className={styles.button} onClick={() => showComments()}>
+              {isSubCommentsVisible ? '[-]' : `[${subComments.length} more]`}
+            </a>
+          }
+        </div>
         {comment.text &&
-          <p dangerouslySetInnerHTML={{ __html: comment.text }} />
+          <p className={styles.text} dangerouslySetInnerHTML={{ __html: comment.text }} />
         }
         {subComments &&
           <CommentsList comments={subComments} visible={isSubCommentsVisible} />

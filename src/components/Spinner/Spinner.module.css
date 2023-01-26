@@ -1,0 +1,26 @@
+@import url('/src/styles/constants.css');
+
+.spinner-wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  place-content: center;
+}
+
+@keyframes color-change {
+  0% {
+    color: var(--pink);
+  }
+
+  55% {
+    color: var(--light-animated-text);
+  }
+
+  100% {
+    color: var(--pink);
+  }
+}
+
+.spinner-text {
+  font-size: 2rem;
+  animation: color-change 3s infinite;
+}

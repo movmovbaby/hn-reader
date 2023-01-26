@@ -1,0 +1,58 @@
+@import url('/src/styles/constants.css');
+
+.comments-list {
+  list-style: none;
+  padding-left: 20px;
+}
+
+.comment {
+  margin-bottom: 2.2rem;
+}
+
+.comment-meta {
+  display: flex;
+  flex-flow: row wrap;
+  position: relative;
+  justify-content: flex-start;
+  gap: 1rem;
+  color: var(--comment-meta-color);
+  line-height: 1rem;
+}
+
+.comment-meta::before {
+  content: "";
+  position: absolute;
+  text-align: center;
+  left: -1rem;
+  width: 10px;
+  height: 10px;
+  background-color: var(--pink);
+
+}
+
+.text {
+  line-height: 1.5rem;
+}
+
+.text a {
+  color: var(--textColor);
+}
+
+.button {
+  color: var(--pink);
+  background: transparent;
+  border-style: none;
+  cursor: pointer;
+  display: inline-block;
+  padding-top: 0;
+  font-size: 1rem;
+  line-height: 1rem;
+  outline: none;
+  position: relative;
+  transition: color 100ms;
+}
+
+.button:hover,
+.button:focus {
+  color: var(--pink-hover);
+}

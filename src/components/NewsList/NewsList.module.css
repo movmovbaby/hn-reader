@@ -1,0 +1,51 @@
+@import url('/src/styles/constants.css');
+
+.news {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  color: var(--textColor);
+  margin-bottom: 1rem;
+}
+
+.link {
+  display: grid;
+  grid-template-columns: 4.5rem auto;
+  text-decoration: none;
+  color: var(--textColor);
+}
+
+.rank {
+  display: flex;
+  align-items: flex-start;
+  font-size: 2rem;
+  color: var(--pink);
+}
+
+.container {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: flex-start;
+}
+
+.title {
+  font-family: Montserrat, sans-serif;
+  font-weight: 900;
+  font-size: 2rem;
+  margin: 0;
+  margin-bottom: 10px;
+  color: var(--pink);
+  flex-basis: auto;
+}
+
+.meta {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.small {
+  font-size: 1.2rem;
+}
