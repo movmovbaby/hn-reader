@@ -28,6 +28,11 @@ export const fetchStories = async (ids) => {
     console.log('Fetch stories error', error)
   }
 };
+export const getStories = async () => {
+  const ids = await fetchTop100StoriesId();
+  const stories = await fetchStories(ids);
+  return stories;
+}
 
 export const fetchComments = async (kids) => {
   try {

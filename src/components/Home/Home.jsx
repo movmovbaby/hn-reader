@@ -1,37 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { fetchStories, fetchTop100StoriesId } from '../../api/hn-api.js';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectors as storiesSelectors } from '../../store/storiesSlice.js';
 import { actions as storiesActions } from '../../store/storiesSlice.js';
+import { getStories } from '../../api/hn-api.js';
 import NewsList from '../NewsList/NewsList.jsx';
-import Spinner from '../Spinner/Spinner.jsx';
 
 const Home = () => {
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
+  const stories = useSelector(storiesSelectors.selectAll);
+  stories.sort((a, b) => a.time > b.time ? -1 : 1);
+
+  const refreshStories = async () => {
+    console.log('refresh stories')
+    const stories = await getStories();
+    dispatch(storiesActions.addStories(stories));
+
+    return setTimeout(() => refreshStories(), 5000);
+  };
 
   useEffect(() => {
-    const getStories = async () => {
-      try {
-        setIsLoading(true);
-        const ids = await fetchTop100StoriesId();
-        const stories = await fetchStories(ids);
-        dispatch(storiesActions.addStories(stories));
-        setIsLoading(false);
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    getStories();
-  }, [dispatch]);
-  return (
-    <>
+    refreshStories();
+  }, [])
 
-      {isLoading
-        ? <Spinner />
-        : <NewsList />
-      }
-    </>
-  );
+  return (
+    <NewsList stories={stories} />
+  )
 };
 
 export default Home;

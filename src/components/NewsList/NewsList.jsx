@@ -1,15 +1,10 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
-import { selectors as storiesSelectors } from '../../store/storiesSlice.js';
 import { dateFormat } from '../../utils.js';
 import styles from './NewsList.module.css';
 
-const NewsList = () => {
+const NewsList = ({ stories }) => {
   const history = useHistory();
-  const stories = useSelector(storiesSelectors.selectAll);
-  stories.sort((a, b) => a.time > b.time ? -1 : 1);
-
   const handleClick = () => history.push('/');
 
   return stories && (
