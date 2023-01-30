@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { dateFormat } from '../../utils.js';
+import dateFormat from '../../utils.js';
 import styles from './NewsList.module.css';
 
 const NewsList = ({ stories }) => {

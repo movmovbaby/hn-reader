@@ -4,8 +4,8 @@ import { useHistory, useParams } from 'react-router-dom';
 import { selectors as storiesSelectors, actions as storiesActions } from '../../store/storiesSlice.js';
 import { fetchComments, fetchStory } from '../../api/hn-api.js';
 import CommentsList from '../Comments/CommentsList.jsx';
+import dateFormat from '../../utils.js';
 import styles from './Story.module.css';
-import { dateFormat } from '../../utils.js';
 
 const Story = () => {
   const { id } = useParams();

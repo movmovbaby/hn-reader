@@ -7,6 +7,7 @@ export const fetchStory = async (id) => {
     return story;
   } catch (error) {
     console.log('Fetch story error', error);
+    return error;
   }
 };
 
@@ -16,7 +17,8 @@ export const fetchTop100StoriesId = async () => {
     const ids = await response.json();
     return ids.slice(0, 100);
   } catch (error) {
-    console.log('Fetch Top 100 ids error', error)
+    console.log('Fetch Top 100 ids error', error);
+    return error;
   }
 };
 
@@ -25,20 +27,23 @@ export const fetchStories = async (ids) => {
     const stories = await Promise.all(ids.map(fetchStory));
     return stories;
   } catch (error) {
-    console.log('Fetch stories error', error)
+    console.log('Fetch stories error', error);
+    return error;
   }
 };
+
 export const getStories = async () => {
   const ids = await fetchTop100StoriesId();
   const stories = await fetchStories(ids);
   return stories;
-}
+};
 
 export const fetchComments = async (kids) => {
   try {
     const comments = await Promise.all(kids.map(fetchStory));
     return comments;
   } catch (error) {
-    console.log('Fetch comments error', error)
+    console.log('Fetch comments error', error);
+    return error;
   }
-}
+};

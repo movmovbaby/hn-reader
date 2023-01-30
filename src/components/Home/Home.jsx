@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectors as storiesSelectors } from '../../store/storiesSlice.js';
 import { actions as storiesActions } from '../../store/storiesSlice.js';
@@ -10,28 +10,51 @@ const Home = () => {
   const dispatch = useDispatch();
   const stories = useSelector(storiesSelectors.selectAll);
   stories.sort((a, b) => a.time > b.time ? -1 : 1);
+  const [loading, setLoading] = useState(false);
 
   const refreshStories = async () => {
-
+    setLoading(true);
     const stories = await getStories();
+    setLoading(false);
     dispatch(storiesActions.addStories(stories));
   };
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      console.log('refresh stories');
-      refreshStories();
-    }, 60000);
 
-    return () => clearInterval(timer);
-  }, [])
+  function useInterval(callback, delay) {
+    const savedCallback = useRef();
+
+    useEffect(() => {
+      savedCallback.current = callback;
+    }, [callback]);
+
+    useEffect(() => {
+      function tick() {
+        savedCallback.current();
+      }
+      if (delay !== null) {
+        let id = setInterval(tick, delay);
+        return () => clearInterval(id);
+      }
+    }, [delay]);
+  };
+
+  useInterval(() => {
+    console.log('refresh stories');
+    refreshStories();
+  }, 10000);
 
   return (
     <>
-      <button className={styles['refresh-button']} onClick={() => {
+      <button className={
+        loading
+          ? styles['refresh-button-animated']
+          : styles['refresh-button']
+      } onClick={() => {
         console.log('button refresh stories');
         refreshStories();
-      }}>Refresh stories</button>
+      }}>{loading
+        ? 'Refreshing ...'
+        : 'Refresh stories'}</button>
       <NewsList stories={stories} />
     </>
   )
