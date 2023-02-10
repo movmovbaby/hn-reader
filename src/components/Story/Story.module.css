@@ -67,6 +67,10 @@
   line-height: 1.5rem;
 }
 
+.text a {
+  color: var(--pink);
+}
+
 .comments-header {
   display: flex;
   flex-flow: row wrap;

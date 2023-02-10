@@ -11,10 +11,25 @@ const Story = () => {
   const { id } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
-
+  const [story, setStory] = useState(null);
   const [comments, setComments] = useState([]);
-  const { url, title, time, by, descendants, text, kids } = useSelector((state) => storiesSelectors.selectById(state, id));
+  const { stories } = useSelector(state => state);
 
+  useEffect(() => {
+    if (stories.ids.length !== 0) {
+      return;
+    }
+    const getStory = async (id) => {
+      const story = await fetchStory(id);
+      setStory(story);
+      dispatch(storiesActions.addStory(story));
+    }
+    getStory();
+  }, []);
+
+
+  // const { url, title, time, by, descendants, text, kids } = story !== undefined ? story : useSelector((state) => storiesSelectors.selectById(state, id));
+  const { url, title, time, by, descendants, text, kids } = useSelector((state) => storiesSelectors.selectById(state, id));
   const urlObj = typeof url === 'undefined' ? null : new URL(url);
 
   useEffect(() => {
@@ -28,18 +43,19 @@ const Story = () => {
     getComments();
   }, [kids]);
 
-  const date = dateFormat(time);
-
-  const updateEntity = async () => {
+  const updateStory = async () => {
     const story = await fetchStory(id);
     const { kids, descendants } = story;
     dispatch(storiesActions.updateStory({ id, changes: { kids, descendants } }));
     console.log('update story');
   };
 
+
+  const date = dateFormat(time);
+
   return (
     <article className={styles.article}>
-      <button className={styles.button} onClick={() => history.goBack()}>Back to Top</button>
+      <button className={styles.button} onClick={() => history.goBack()}>Back to Top News</button>
       <div className={styles.container}>
         <div className={styles.header}>
           <h3 className={styles.title}>{title}</h3>
@@ -61,7 +77,7 @@ const Story = () => {
       <div>
         <div className={styles['comments-header']}>
           <h3 className={styles.title}>Comments</h3>
-          <button className={`${styles.button} ${styles['comments-refresh']}`} onClick={() => updateEntity()}>Refresh comments</button>
+          <button className={`${styles.button} ${styles['comments-refresh']}`} onClick={() => updateStory()}>Refresh comments</button>
         </div>
         {comments && (
           <CommentsList comments={comments} visible />

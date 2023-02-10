@@ -28,7 +28,7 @@ const Comment = ({ comment }) => {
   };
 
   return (
-    comment.deleted ? null : (
+    comment.deleted || comment.dead ? null : (
       <div className={styles.comment}>
         <div className={styles['comment-meta']}>
           <span>{comment.by}</span>
