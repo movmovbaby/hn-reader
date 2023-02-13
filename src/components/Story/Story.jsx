@@ -1,36 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { selectors as storiesSelectors, actions as storiesActions } from '../../store/storiesSlice.js';
-import { fetchComments, fetchStory } from '../../api/hn-api.js';
-import CommentsList from '../Comments/CommentsList.jsx';
+import CommentsList from '../../components/Comments/CommentsList.jsx';
 import dateFormat from '../../utils.js';
+import { fetchComments, fetchStory } from '../../api/hn-api.js';
 import styles from './Story.module.css';
 
-const Story = () => {
-  const { id } = useParams();
+const Story = ({ story }) => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const [story, setStory] = useState(null);
   const [comments, setComments] = useState([]);
-  const { stories } = useSelector(state => state);
+  const [isRefreshingComments, setIsRefreshingComments] = useState(false);
 
-  useEffect(() => {
-    if (stories.ids.length !== 0) {
-      return;
-    }
-    const getStory = async (id) => {
-      const story = await fetchStory(id);
-      setStory(story);
-      dispatch(storiesActions.addStory(story));
-    }
-    getStory();
-  }, []);
+  const { id, url, title, time, by, descendants, text, kids } = story;
+  const _URL = typeof url === 'undefined' ? null : new URL(url);
 
-
-  // const { url, title, time, by, descendants, text, kids } = story !== undefined ? story : useSelector((state) => storiesSelectors.selectById(state, id));
-  const { url, title, time, by, descendants, text, kids } = useSelector((state) => storiesSelectors.selectById(state, id));
-  const urlObj = typeof url === 'undefined' ? null : new URL(url);
+  const date = dateFormat(time);
 
   useEffect(() => {
     const getComments = async () => {
@@ -44,14 +30,13 @@ const Story = () => {
   }, [kids]);
 
   const updateStory = async () => {
+    setIsRefreshingComments(true);
     const story = await fetchStory(id);
     const { kids, descendants } = story;
     dispatch(storiesActions.updateStory({ id, changes: { kids, descendants } }));
+    setIsRefreshingComments(false);
     console.log('update story');
   };
-
-
-  const date = dateFormat(time);
 
   return (
     <article className={styles.article}>
@@ -66,8 +51,8 @@ const Story = () => {
               ? null
               : <small className={styles['small-text']}>{descendants} comments</small>}
           </div>
-          {urlObj &&
-            <span className={styles['small-text']}>link to original post&nbsp;<a href={url} className={styles['small-link']}>{urlObj.hostname}</a></span>
+          {_URL &&
+            <span className={styles['small-text']}>link to original post&nbsp;<a href={url} className={styles['small-link']}>{_URL.hostname}</a></span>
           }
         </div>
         {text &&
@@ -77,7 +62,10 @@ const Story = () => {
       <div>
         <div className={styles['comments-header']}>
           <h3 className={styles.title}>Comments</h3>
-          <button className={`${styles.button} ${styles['comments-refresh']}`} onClick={() => updateStory()}>Refresh comments</button>
+          <button className={`${styles.button} ${styles['comments-refresh']}`} onClick={() => updateStory()}>
+            {isRefreshingComments
+              ? 'Refreshing...'
+              : 'Refresh comments'}</button>
         </div>
         {comments && (
           <CommentsList comments={comments} visible />
@@ -85,6 +73,6 @@ const Story = () => {
       </div>
     </article >
   )
-};
+}
 
 export default Story;
