@@ -52,14 +52,15 @@ const HomePage = () => {
 
   const refreshStories = async () => {
     setIsRefreshing(true);
-    const stories = await getStories();
+    dispatch(getStories());
     setIsRefreshing(false);
-    dispatch(storiesActions.addStories(stories));
+    console.log(stories);
+
   };
 
   useInterval(() => {
     refreshStories();
-  }, 60_000);
+  }, 600_000);
 
   return (
     <>

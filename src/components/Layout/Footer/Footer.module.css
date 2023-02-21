@@ -5,8 +5,14 @@
   flex-flow: row wrap;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
-  margin-bottom: 2rem;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+@media (min-width: 780px) {
+  .footer {
+    gap: 2rem;
+  }
 }
 
 .item {
