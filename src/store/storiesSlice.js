@@ -4,7 +4,6 @@ import { fetchStories, fetchTop100StoriesId, fetchStory } from '../api/hn-api.js
 export const getStories = createAsyncThunk(
   'stories/getStories',
   async () => {
-    console.log('thunk getStories');
     const ids = await fetchTop100StoriesId();
     const stories = await fetchStories(ids);
     return stories;
@@ -14,7 +13,6 @@ export const getStories = createAsyncThunk(
 export const getStoryById = createAsyncThunk(
   'stories/getStoryById',
   async (id) => {
-    console.log('thunk getStoryById');
     const story = await fetchStory(id);
     return story;
   },
@@ -38,7 +36,6 @@ const storiesSlice = createSlice({
         state.error = null;
       })
       .addCase(getStories.fulfilled, (state, action) => {
-        console.log('ACTION=', action);
         state.loadingStatus = 'idle';
         storiesAdapter.setAll(state, action.payload);
       })

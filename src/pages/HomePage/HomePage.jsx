@@ -28,13 +28,11 @@ const useInterval = (callback, delay) => {
 const HomePage = () => {
   const dispatch = useDispatch();
   const loadingStatus = useSelector((state) => state.stories.loadingStatus);
-  console.log('STATUS=', loadingStatus);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const ids = useSelector(storiesSelectors.selectIds);
 
   useEffect(() => {
     const loadStories = async () => {
-      console.log('main loadStories');
       try {
         dispatch(getStories());
       } catch (e) {
@@ -43,10 +41,8 @@ const HomePage = () => {
     };
 
     if (ids.length === 100) {
-      console.log('истории уже загружены');
       return;
     } else {
-      console.log('истории надо загрузить');
       loadStories();
     }
   }, []);
@@ -62,7 +58,6 @@ const HomePage = () => {
   };
 
   useInterval(() => {
-    console.log('refresh stories');
     refreshStories();
   }, 60_000);
 

@@ -12,36 +12,26 @@ const StoryPage = () => {
   const storyId = Number(id);
   const dispatch = useDispatch();
   const loadingStatus = useSelector((state) => state.stories.loadingStatus);
-  const isIdLoaded = useSelector(storiesSelectors.selectIds).includes(storyId);
-  console.log('isIdLoaded=', isIdLoaded)
+  const isStoryAlreadyStored = useSelector(storiesSelectors.selectIds).includes(storyId);
 
   useEffect(() => {
     const getStory = async (id) => {
-      console.log('СКАЧИВАЮ')
       dispatch(getStoryById(id))
-      console.log('СКАЧАЛ');
     };
 
-    if (isIdLoaded) {
-      console.log('ИСТОРИЯ уже есть!')
+    if (isStoryAlreadyStored) {
       return;
     } else {
-      console.log('ИСТОРИЮ надо скачать!')
       getStory(storyId);
     }
   }, [id]);
 
-  const stories = useSelector(storiesSelectors.selectAll);
-  const story = stories.find((story) => story.id === storyId);
-  console.log('STORY=', story)
+  const story = useSelector((state) => storiesSelectors.selectById(state, storyId));
 
   return (
     <>
-      {
-        loadingStatus === 'loading'
-          ? <Spinner />
-          : <Story story={story} />
-      }
+      {loadingStatus === 'loading' && <Spinner />}
+      {story && <Story story={story} />}
     </>
   )
 };

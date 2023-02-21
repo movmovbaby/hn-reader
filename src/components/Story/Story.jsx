@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { selectors as storiesSelectors, actions as storiesActions } from '../../store/storiesSlice.js';
+import { actions as storiesActions } from '../../store/storiesSlice.js';
 import CommentsList from '../../components/Comments/CommentsList.jsx';
 import dateFormat from '../../utils.js';
 import { fetchComments, fetchStory } from '../../api/hn-api.js';
@@ -35,7 +35,6 @@ const Story = ({ story }) => {
     const { kids, descendants } = story;
     dispatch(storiesActions.updateStory({ id, changes: { kids, descendants } }));
     setIsRefreshingComments(false);
-    console.log('update story');
   };
 
   return (
