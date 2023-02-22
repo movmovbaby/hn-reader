@@ -1,5 +1,4 @@
 # Hacker News Top 100 Reader
-[Hacker News reader](https://hacker-news-reader2023.vercel.app/)
 
 Интерфейс для сайта [Hacker News](https://news.ycombinator.com/). Делал по требованиям задания от [Avito](https://github.com/avito-tech/internship_frontend_2022). Сделал все пункты, работаю над опциональными заданиями (планирую перевести на TS).
 
