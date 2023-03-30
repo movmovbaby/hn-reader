@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { actions as storiesActions } from '../../store/storiesSlice.js';
 import CommentsList from '../../components/Comments/CommentsList.jsx';
 import dateFormat from '../../utils.js';
-import { fetchComments, fetchStory } from '../../api/hn-api.js';
+import { fetchComments, fetchItem } from '../../api/hn-api.js';
 import styles from './Story.module.css';
 
 const Story = ({ story }) => {
@@ -31,7 +31,7 @@ const Story = ({ story }) => {
 
   const updateStory = async () => {
     setIsRefreshingComments(true);
-    const story = await fetchStory(id);
+    const story = await fetchItem(id);
     const { kids, descendants } = story;
     dispatch(storiesActions.updateStory({ id, changes: { kids, descendants } }));
     setIsRefreshingComments(false);

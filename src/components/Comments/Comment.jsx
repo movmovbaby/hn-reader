@@ -9,7 +9,7 @@ const Comment = ({ comment }) => {
   const [subComments, setSubComments] = useState(null);
   const [isSubCommentsVisible, setSubCommentsVisible] = useState(false);
   const date = dateFormat(comment.time);
-  const kids = comment.kids;
+  const kids = comment?.kids;
 
   useEffect(() => {
     const getSubComments = async () => {

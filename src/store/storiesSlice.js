@@ -1,11 +1,10 @@
 import { createAsyncThunk, createSlice, createEntityAdapter } from '@reduxjs/toolkit';
-import { fetchStories, fetchTop100StoriesId, fetchStory } from '../api/hn-api.js';
+import { fetchTop100Items, fetchItem } from '../api/hn-api.js';
 
 export const getStories = createAsyncThunk(
   'stories/getStories',
   async () => {
-    const ids = await fetchTop100StoriesId();
-    const stories = await fetchStories(ids);
+    const stories = fetchTop100Items();
     return stories;
   },
 );
@@ -13,7 +12,7 @@ export const getStories = createAsyncThunk(
 export const getStoryById = createAsyncThunk(
   'stories/getStoryById',
   async (id) => {
-    const story = await fetchStory(id);
+    const story = await fetchItem(id);
     return story;
   },
 )

@@ -1,49 +1,49 @@
 import routes from '../routes.js';
 
-export const fetchStory = async (id) => {
-  try {
-    const response = await fetch(routes.storyPath(id));
-    const story = await response.json();
-    return story;
-  } catch (error) {
-    console.log('Fetch story error', error);
-    return error;
-  }
-};
-
-export const fetchTop100StoriesId = async () => {
-  try {
+const fetchTop100ItemsId = async () => {
     const response = await fetch(routes.topStoriesPath());
     const ids = await response.json();
-    return ids.slice(0, 100);
-  } catch (error) {
-    console.log('Fetch Top 100 ids error', error);
-    return error;
+    if (response.ok) {
+      return ids.slice(0, 100);
+    } else {
+      return Promise.reject(new Error("Failed to load top 100 strories ids"));
+    }
+};
+
+export const fetchItem = async (id: Id) => {
+  const response = await fetch(routes.storyPath(id));
+  const story = await response.json();
+  if (response.ok) {
+    return story;
+  } else {
+    return Promise.reject(new Error("Failed to load story from HN"));
   }
 };
 
-export const fetchStories = async (ids) => {
+const fetchItems = async (ids) => {
   try {
-    const stories = await Promise.all(ids.map(fetchStory));
+    const stories = await Promise.all(ids.map(fetchItem));
     return stories;
   } catch (error) {
-    console.log('Fetch stories error', error);
-    return error;
+    return Promise.reject(new Error("Failed to load top 100 strories", error));
   }
 };
 
-export const getStories = async () => {
-  const ids = await fetchTop100StoriesId();
-  const stories = await fetchStories(ids);
-  return stories;
+export const fetchTop100Items = async () => {
+  try {
+    const ids = await fetchTop100ItemsId();
+    const stories = await fetchItems(ids);
+    return stories;
+  } catch (error) {
+    return Promise.reject(new Error("Failed to load top 100 strories", error));
+  }
 };
 
 export const fetchComments = async (kids) => {
   try {
-    const comments = await Promise.all(kids.map(fetchStory));
+    const comments = fetchItems(ids);
     return comments;
   } catch (error) {
-    console.log('Fetch comments error', error);
-    return error;
+    return Promise.reject(new Error("Failed to load top comments", error));
   }
 };
