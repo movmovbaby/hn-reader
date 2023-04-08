@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { fetchComments } from '../../api/hn-api.js';
+import { fetchComments } from '../../api/hn-api';
 import CommentsList from './CommentsList.jsx';
-import dateFormat from '../../utils.js';
+import dateFormat from '../../utils';
 import styles from './Comments.module.css';
 
 
@@ -47,7 +47,7 @@ const Comment = ({ comment }) => {
         }
       </div>
     )
-  )
+  );
 };
 
 export default Comment;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import dateFormat from '../../utils.js';
+import dateFormat from '../../utils';
 import styles from './NewsList.module.css';
 
 const NewsList = ({ stories }) => {
@@ -23,9 +23,9 @@ const NewsList = ({ stories }) => {
               </div>
             </div>
           </Link>
-        </article >)
+        </article >);
     })
-  )
+  );
 };
 
 export default NewsList;

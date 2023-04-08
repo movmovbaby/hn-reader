@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, createEntityAdapter } from '@reduxjs/toolkit';
-import { fetchTop100Items, fetchItem } from '../api/hn-api.js';
+import { fetchTop100Items, fetchItem } from '../api/hn-api';
 
 export const getStories = createAsyncThunk(
   'stories/getStories',
@@ -15,7 +15,7 @@ export const getStoryById = createAsyncThunk(
     const story = await fetchItem(id);
     return story;
   },
-)
+);
 
 const storiesAdapter = createEntityAdapter();
 
@@ -45,9 +45,9 @@ const storiesSlice = createSlice({
       .addCase(getStoryById.fulfilled, (state, action) => {
         state.loadingStatus = 'idle';
         storiesAdapter.addOne(state, action.payload);
-      })
+      });
   },
-})
+});
 
 export const { actions } = storiesSlice;
 export const selectors = storiesAdapter.getSelectors((state) => state.stories);

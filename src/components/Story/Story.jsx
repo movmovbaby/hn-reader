@@ -3,8 +3,8 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { actions as storiesActions } from '../../store/storiesSlice.js';
 import CommentsList from '../../components/Comments/CommentsList.jsx';
-import dateFormat from '../../utils.js';
-import { fetchComments, fetchItem } from '../../api/hn-api.js';
+import dateFormat from '../../utils';
+import { fetchComments, fetchItem } from '../../api/hn-api';
 import styles from './Story.module.css';
 
 const Story = ({ story }) => {
@@ -71,7 +71,7 @@ const Story = ({ story }) => {
         )}
       </div>
     </article >
-  )
-}
+  );
+};
 
 export default Story;
