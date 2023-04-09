@@ -6,7 +6,7 @@ export interface Item {
   deleted?: boolean;
   type?: ItemType;
   by?: string;
-  time?: number;
+  time: number;
   text?: string;
   dead?: boolean;
   parent?: Item;

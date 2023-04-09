@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { fetchComments } from '../../api/hn-api';
-import CommentsList from './CommentsList.jsx';
+import CommentsList from './CommentsList';
 import dateFormat from '../../utils';
 import styles from './Comments.module.css';
+import { Item } from '../../types/index';
 
 
-const Comment = ({ comment }) => {
-  const [subComments, setSubComments] = useState(null);
+const Comment = ({ comment }: {comment : Item}): JSX.Element | null => {
+  const [subComments, setSubComments] = useState<Item[] | null>(null);
   const [isSubCommentsVisible, setSubCommentsVisible] = useState(false);
   const date = dateFormat(comment.time);
   const kids = comment.kids;
@@ -16,8 +17,6 @@ const Comment = ({ comment }) => {
       if (kids) {
         const comments = await fetchComments(kids);
         setSubComments(comments);
-      } else {
-        return null;
       }
     };
     getSubComments();
