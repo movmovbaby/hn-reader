@@ -4,8 +4,8 @@ import Wrapper from './components/Layout/Wrapper/Wrapper';
 import Main from './components/Layout/Main/Main';
 import Header from './components/Layout/Header/Header';
 import Footer from './components/Layout/Footer/Footer';
-import HomePage from './pages/HomePage/HomePage.jsx';
-import StoryPage from './pages/StoryPage/StoryPage.jsx';
+import HomePage from './pages/HomePage/HomePage';
+import StoryPage from './pages/StoryPage/StoryPage';
 
 const App = () => {
   return (

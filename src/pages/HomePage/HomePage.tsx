@@ -1,14 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectors as storiesSelectors } from '../../store/storiesSlice.js';
-import { actions as storiesActions } from '../../store/storiesSlice.js';
-import { getStories } from '../../store/storiesSlice.js';
-import NewsList from '../../components/NewsList/NewsList.jsx';
-import Spinner from '../../components/Spinner/Spinner.jsx'
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import { getStories, selectors as storiesSelectors } from '../../store/storiesSlice';
+import NewsList from '../../components/NewsList/NewsList';
+import Spinner from '../../components/Spinner/Spinner';
 import styles from './Home.module.css';
+import { Item } from '../../types/index';
 
-const useInterval = (callback, delay) => {
-  const savedCallback = useRef();
+const useInterval = (callback: () => void, delay: number | null) => {
+  const savedCallback = useRef(callback);
 
   useEffect(() => {
     savedCallback.current = callback;
@@ -18,18 +17,18 @@ const useInterval = (callback, delay) => {
     function tick() {
       savedCallback.current();
     }
-    if (delay !== null) {
+    if (delay !== null && delay !== 0) {
       let id = setInterval(tick, delay);
       return () => clearInterval(id);
     }
   }, [delay]);
 };
 
-const HomePage = () => {
-  const dispatch = useDispatch();
-  const loadingStatus = useSelector((state) => state.stories.loadingStatus);
+const HomePage = (): JSX.Element => {
+  const dispatch = useAppDispatch();
+  const loadingStatus = useAppSelector((state) => state.stories.loadingStatus);
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const ids = useSelector(storiesSelectors.selectIds);
+  const ids = useAppSelector(storiesSelectors.selectIds);
 
   useEffect(() => {
     const loadStories = async () => {
@@ -47,7 +46,7 @@ const HomePage = () => {
     }
   }, []);
 
-  const stories = useSelector(storiesSelectors.selectAll);
+  const stories = useAppSelector(storiesSelectors.selectAll) as Item[];
   stories.sort((a, b) => a.time > b.time ? -1 : 1);
 
   const refreshStories = async () => {
@@ -69,20 +68,21 @@ const HomePage = () => {
         :
         <>
           <button className={
-            isRefreshing
-              ? styles['refresh-button-animated']
-              : styles['refresh-button']
-          } onClick={() => {
-            console.log('button refresh stories');
-            refreshStories();
-          }}>{isRefreshing
-            ? 'Refreshing ...'
-            : 'Refresh stories'}</button>
+              isRefreshing ? styles['refresh-button-animated'] : styles['refresh-button']
+            }
+            onClick={() => {
+              console.log('button refresh stories');
+              refreshStories();
+            }}>
+              {isRefreshing
+              ? 'Refreshing ...'
+              : 'Refresh stories'}
+          </button>
           <NewsList stories={stories} />
         </>
       }
     </>
-  )
+  );
 };
 
 export default HomePage;

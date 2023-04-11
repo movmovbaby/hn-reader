@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '../../store/hooks';
 import { useHistory } from 'react-router-dom';
-import { actions as storiesActions } from '../../store/storiesSlice.js';
-import CommentsList from '../../components/Comments/CommentsList.tsx';
+import { actions as storiesActions } from '../../store/storiesSlice';
+import CommentsList from '../../components/Comments/CommentsList';
 import dateFormat from '../../utils';
 import { fetchComments, fetchItem } from '../../api/hn-api';
 import styles from './Story.module.css';
+import { Item } from '../../types/index';
 
-const Story = ({ story }) => {
+const Story = ({ story }: {story: Item}): JSX.Element => {
   const history = useHistory();
-  const dispatch = useDispatch();
-  const [comments, setComments] = useState([]);
+  const dispatch = useAppDispatch();
+  const [comments, setComments] = useState<Item[] | null>([]);
   const [isRefreshingComments, setIsRefreshingComments] = useState(false);
 
   const { id, url, title, time, by, descendants, text, kids } = story;

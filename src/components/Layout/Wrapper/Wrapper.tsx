@@ -1,8 +1,11 @@
-import React from 'react';
+import {ReactNode} from 'react';
 import styles from './Wrapper.module.css';
 
-const Wrapper = (
-  {children}: {children: JSX.Element})
-  : JSX.Element => <div className={styles.wrapper}>{children}</div>;
+
+interface WrapperProps {
+    children: ReactNode;
+}
+
+const Wrapper = ({children}: WrapperProps): JSX.Element => <div className={styles.wrapper}>{children}</div>;
 
 export default Wrapper;
