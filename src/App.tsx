@@ -17,6 +17,9 @@ const App = () => {
             <Route exact path='/'>
               <HomePage />
             </Route>
+            {/* <Route path='/:number'>
+              <HomePage />
+            </Route> */}
             <Route path='/story/:id'>
               <StoryPage />
             </Route>

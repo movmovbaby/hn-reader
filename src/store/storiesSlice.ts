@@ -7,23 +7,23 @@ import { fetchTop100Items, fetchItem } from "../api/hn-api";
 import { Id, Item } from "../types/index";
 import { RootState } from "./index";
 
-export const getStories = createAsyncThunk(
+export const getStories = createAsyncThunk<Item[]>(
   "stories/getStories",
   async (): Promise<Item[]> => {
-    const stories = await fetchTop100Items();
-    return stories as Item[];
+    const stories: Item[] = await fetchTop100Items();
+    return stories;
   }
 );
 
-export const getStoryById = createAsyncThunk(
+export const getStoryById = createAsyncThunk<Item, Id>(
   "stories/getStoryById",
   async (id: Id): Promise<Item> => {
-    const story = await fetchItem(id);
-    return story as Item;
+    const story: Item | string = await fetchItem(id);
+    return story;
   }
 );
 
-const storiesAdapter = createEntityAdapter();
+const storiesAdapter = createEntityAdapter<Item>();
 
 const storiesSlice = createSlice({
   name: "stories",
