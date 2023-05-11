@@ -49,5 +49,28 @@
   padding: 5px 16px;
   position: relative;
   transition: color 100ms;
-  animation: color-change 3s infinite;
+  animation: color-change 1s infinite;
+}
+
+.pagination {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-self: center;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pagination__item {
+  display: flex;
+  place-content: center;
+  color: var(--pink);
+  font-size: 1.5rem;
+  width: 2rem;
+  height: 2rem;
+}
+
+.pagination__item--active {
+  border: 1px solid var(--pink);
 }

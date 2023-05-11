@@ -10,6 +10,7 @@ import { RootState } from "./index";
 export const getStories = createAsyncThunk<Item[]>(
   "stories/getStories",
   async (): Promise<Item[]> => {
+    console.log("getStories");
     const stories: Item[] = await fetchTop100Items();
     return stories;
   }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { fetchComments } from '../../api/hn-api';
+import { fetchItems } from '../../api/hn-api';
 import CommentsList from './CommentsList';
 import dateFormat from '../../utils';
 import styles from './Comments.module.css';
@@ -15,7 +15,7 @@ const Comment = ({ comment }: {comment : Item}): JSX.Element | null => {
   useEffect(() => {
     const getSubComments = async () => {
       if (kids) {
-        const comments = await fetchComments(kids);
+        const comments = await fetchItems(kids);
         setSubComments(comments);
       }
     };

@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { actions as storiesActions } from '../../store/storiesSlice';
 import CommentsList from '../../components/Comments/CommentsList';
 import dateFormat from '../../utils';
-import { fetchComments, fetchItem } from '../../api/hn-api';
+import { fetchItems, fetchItem } from '../../api/hn-api';
 import styles from './Story.module.css';
 import { Item } from '../../types/index';
 
@@ -15,7 +15,7 @@ const Story = ({ story }: {story: Item}): JSX.Element => {
   const [isRefreshingComments, setIsRefreshingComments] = useState(false);
 
   const { id, url, title, time, by, descendants, text, kids } = story;
-  const _URL = typeof url === 'undefined' ? null : new URL(url);
+  const linkToOriginalPost = typeof url === 'undefined' ? null : new URL(url);
 
   const date = dateFormat(time);
 
@@ -24,7 +24,7 @@ const Story = ({ story }: {story: Item}): JSX.Element => {
       if (kids === undefined) {
         return;
       }
-      const comments = await fetchComments(kids);
+      const comments = await fetchItems(kids);
       setComments(comments);
     };
     getComments();
@@ -51,8 +51,8 @@ const Story = ({ story }: {story: Item}): JSX.Element => {
               ? null
               : <small className={styles['small-text']}>{descendants} comments</small>}
           </div>
-          {_URL &&
-            <span className={styles['small-text']}>link to original post&nbsp;<a href={url} className={styles['small-link']}>{_URL.hostname}</a></span>
+          {linkToOriginalPost &&
+            <span className={styles['small-text']}>link to original post&nbsp;<a href={url} className={styles['small-link']}>{linkToOriginalPost.hostname}</a></span>
           }
         </div>
         {text &&

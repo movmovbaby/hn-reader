@@ -5,29 +5,12 @@ import NewsList from '../../components/NewsList/NewsList';
 import Spinner from '../../components/Spinner/Spinner';
 import styles from './Home.module.css';
 import { Item } from '../../types/index';
-
-const useInterval = (callback: () => void, delay: number | null) => {
-  const savedCallback = useRef(callback);
-
-  useEffect(() => {
-    savedCallback.current = callback;
-  }, [callback]);
-
-  useEffect(() => {
-    function tick() {
-      savedCallback.current();
-    }
-    if (delay !== null && delay !== 0) {
-      let id = setInterval(tick, delay);
-      return () => clearInterval(id);
-    }
-  }, [delay]);
-};
+import { useInterval } from '../../hooks';
+import { REFRESH_RATE } from '../../constants';
 
 const HomePage = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const loadingStatus = useAppSelector((state) => state.stories.loadingStatus);
-  const [isRefreshing, setIsRefreshing] = useState(false);
   const ids = useAppSelector(storiesSelectors.selectIds);
 
   useEffect(() => {
@@ -47,34 +30,30 @@ const HomePage = (): JSX.Element => {
   }, []);
 
   const stories = useAppSelector(storiesSelectors.selectAll) as Item[];
-  stories.sort((a, b) => a.time > b.time ? -1 : 1);
+  stories.sort((a: Item, b: Item): -1 | 1 => a.time > b.time ? -1 : 1);
 
   const refreshStories = async () => {
-    setIsRefreshing(true);
     dispatch(getStories());
-    setIsRefreshing(false);
-    console.log(stories);
-
   };
 
   useInterval(() => {
     refreshStories();
-  }, 600_000);
+  }, REFRESH_RATE);
 
   return (
     <>
-      {loadingStatus === 'loading'
+      {loadingStatus === 'loading' && ids.length !== 100
         ? <Spinner />
         :
         <>
           <button className={
-              isRefreshing ? styles['refresh-button-animated'] : styles['refresh-button']
+              loadingStatus === 'loading' ? styles['refresh-button-animated'] : styles['refresh-button']
             }
             onClick={() => {
               console.log('button refresh stories');
               refreshStories();
             }}>
-              {isRefreshing
+              {loadingStatus === 'loading'
               ? 'Refreshing ...'
               : 'Refresh stories'}
           </button>

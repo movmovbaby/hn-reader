@@ -22,12 +22,12 @@
 .comment-meta::before {
   content: "";
   position: absolute;
-  text-align: center;
   left: -1rem;
+  top: 4px;
   width: 10px;
   height: 10px;
   background-color: var(--pink);
-
+  border-radius: 50%;
 }
 
 .text {
