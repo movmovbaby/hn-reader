@@ -1,9 +1,11 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './Header.module.css';
 
 const Header = (): JSX.Element => (
   <header className={styles.header}>
-    <h1 className={styles.title}>Hacker News Top 100 Reader</h1>
+    <Link to='/1'>
+      <h1 className={styles.title}>Hacker News Top 100 Reader</h1>
+    </Link>
   </header>
 );
 

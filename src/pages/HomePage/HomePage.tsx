@@ -8,14 +8,12 @@ import styles from './Home.module.css';
 import { Item } from '../../types/index';
 import { useInterval } from '../../hooks';
 import { REFRESH_RATE } from '../../constants';
+import Pagination from '../../components/Pagination/Pagination';
 
 const HomePage = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const { page } = useParams<{page: string}>();
   const pageNumber = Number(page);
-  
-  const history = useHistory();
-  const handleClick = () => history.push(`/${pageNumber}`);
 
   const loadingStatus = useAppSelector((state) => state.stories.loadingStatus);
   const ids = useAppSelector(storiesSelectors.selectIds);
@@ -44,6 +42,7 @@ const HomePage = (): JSX.Element => {
   };
 
   useInterval(() => {
+    console.log('timer refresh');
     refreshStories();
   }, REFRESH_RATE);
 
@@ -65,26 +64,8 @@ const HomePage = (): JSX.Element => {
               : 'Refresh stories'}
           </button>
           <NewsList stories={stories} pageNumber={pageNumber} />
-
-          <ul className={styles['pagination']}>
-            <li className={`${styles['pagination__item']} ${styles['pagination__item--active']}`}>
-              <Link to={'/1'} onClick={handleClick} className={styles['pagination__page-number']}>1</Link>
-            </li>
-            <li className={styles['pagination__item']}>
-              <Link to={'/2'} onClick={handleClick} className={styles['pagination__page-number']}>2</Link>
-            </li>
-            <li className={styles['pagination__item']}>
-              <Link to={`/3`} onClick={handleClick} className={styles['pagination__page-number']}>3</Link>
-            </li>
-            <li className={styles['pagination__item']}>
-              <Link to={`/4`} onClick={handleClick} className={styles['pagination__page-number']}>4</Link>
-            </li>
-            <li className={styles['pagination__item']}>
-              <Link to={`/5`} onClick={handleClick} className={styles['pagination__page-number']}>5</Link>
-            </li>
-          </ul>
+          <Pagination pageNumber={pageNumber}/>
         </>
-        
       }
     </>
   );

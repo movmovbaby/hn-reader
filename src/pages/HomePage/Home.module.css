@@ -51,30 +51,3 @@
   transition: color 100ms;
   animation: color-change 1s infinite;
 }
-
-.pagination {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  align-self: center;
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-.pagination__item {
-  display: flex;
-  place-content: center;
-  width: 2rem;
-  height: 2rem;
-}
-
-.pagination__item--active {
-  border: 1px solid var(--pink);
-}
-
-.pagination__page-number {
-  color: var(--pink);
-  font-size: 1.5rem;
-  text-decoration: none;
-}

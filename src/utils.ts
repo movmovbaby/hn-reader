@@ -7,5 +7,9 @@ export const dateFormat = (time: number): string => {
 };
 
 export const getIndexesForPage = (pageNumber: number): [number, number] => {
-  return [(pageNumber - 1) * NEWS_PER_PAGE, pageNumber * NEWS_PER_PAGE];
+  const start = (pageNumber - 1) * NEWS_PER_PAGE;
+  const end =
+    pageNumber * NEWS_PER_PAGE > 100 ? 100 : pageNumber * NEWS_PER_PAGE;
+
+  return [start, end];
 };
