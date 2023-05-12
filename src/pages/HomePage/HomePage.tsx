@@ -7,7 +7,7 @@ import Spinner from '../../components/Spinner/Spinner';
 import styles from './Home.module.css';
 import { Item } from '../../types/index';
 import { useInterval } from '../../hooks';
-import { REFRESH_RATE } from '../../constants';
+import { REFRESH_RATE, NEWS_PER_PAGE } from '../../constants';
 import Pagination from '../../components/Pagination/Pagination';
 
 const HomePage = (): JSX.Element => {
@@ -48,7 +48,7 @@ const HomePage = (): JSX.Element => {
 
   return (
     <>
-      {loadingStatus === 'loading' && ids.length !== 100
+      {loadingStatus === 'loading' && ids.length !== NEWS_PER_PAGE
         ? <Spinner />
         :
         <>
