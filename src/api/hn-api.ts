@@ -1,6 +1,6 @@
 import { Id, Item } from "../types/index";
 import routes from "../routes";
-import { NEWS_LIMIT } from "../constants";
+import { getIndexesForPage } from "../utils";
 
 export const fetchItem = async (id: Id): Promise<Item> => {
   const response = await fetch(routes.storyPath(id));
@@ -13,9 +13,12 @@ export const fetchItems = async (ids: Id[]): Promise<Item[]> => {
   return stories;
 };
 
-export const fetchTop100Items = async (): Promise<Item[]> => {
+export const fetchItemsForPage = async (
+  pageNumber: number
+): Promise<Item[]> => {
   const response = await fetch(routes.topStoriesPath());
-  const ids = (await response.json()).slice(0, NEWS_LIMIT);
+  const [start, end] = getIndexesForPage(pageNumber);
+  const ids = (await response.json()).slice(start, end);
   const stories = await fetchItems(ids);
   return stories;
 };

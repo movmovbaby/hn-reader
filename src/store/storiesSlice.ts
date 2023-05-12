@@ -3,15 +3,14 @@ import {
   createSlice,
   createEntityAdapter,
 } from "@reduxjs/toolkit";
-import { fetchTop100Items, fetchItem } from "../api/hn-api";
+import { fetchItemsForPage, fetchItem } from "../api/hn-api";
 import { Id, Item } from "../types/index";
 import { RootState } from "./index";
 
-export const getStories = createAsyncThunk<Item[]>(
+export const getStories = createAsyncThunk<Item[], number>(
   "stories/getStories",
-  async (): Promise<Item[]> => {
-    console.log("getStories");
-    const stories: Item[] = await fetchTop100Items();
+  async (pageNumber: number): Promise<Item[]> => {
+    const stories: Item[] = await fetchItemsForPage(pageNumber);
     return stories;
   }
 );

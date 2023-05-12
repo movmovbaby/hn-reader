@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { fetchItems } from '../../api/hn-api';
 import CommentsList from './CommentsList';
-import dateFormat from '../../utils';
+import { dateFormat }  from '../../utils';
 import styles from './Comments.module.css';
 import { Item } from '../../types/index';
 

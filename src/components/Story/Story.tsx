@@ -3,12 +3,16 @@ import { useAppDispatch } from '../../store/hooks';
 import { useHistory } from 'react-router-dom';
 import { actions as storiesActions } from '../../store/storiesSlice';
 import CommentsList from '../../components/Comments/CommentsList';
-import dateFormat from '../../utils';
+import { dateFormat } from '../../utils';
 import { fetchItems, fetchItem } from '../../api/hn-api';
 import styles from './Story.module.css';
 import { Item } from '../../types/index';
 
-const Story = ({ story }: {story: Item}): JSX.Element => {
+type StoryProps = {
+  story: Item;
+};
+
+const Story = ({ story }: StoryProps): JSX.Element => {
   const history = useHistory();
   const dispatch = useAppDispatch();
   const [comments, setComments] = useState<Item[] | null>([]);

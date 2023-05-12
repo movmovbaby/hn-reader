@@ -65,12 +65,16 @@
 .pagination__item {
   display: flex;
   place-content: center;
-  color: var(--pink);
-  font-size: 1.5rem;
   width: 2rem;
   height: 2rem;
 }
 
 .pagination__item--active {
   border: 1px solid var(--pink);
+}
+
+.pagination__page-number {
+  color: var(--pink);
+  font-size: 1.5rem;
+  text-decoration: none;
 }
