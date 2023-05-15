@@ -62,10 +62,6 @@ const storiesSlice = createSlice({
         state.loadingStatus = "idle";
         storiesAdapter.addOne(state, action.payload);
       });
-    // .addCase(getIds.fulfilled, (state, action) => {
-    //   state.loadingStatus = "idle";
-    //   storiesAdapter.setAll(state, action.payload);
-    // });
   },
 });
 
