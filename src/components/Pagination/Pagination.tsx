@@ -2,7 +2,7 @@ import {Link, useHistory} from 'react-router-dom';
 import { NEWS_PER_PAGE } from '../../constants';
 import styles from './Pagination.module.css';
 
-type PaginationProps = {
+interface PaginationProps {
   pageNumber: number;
 }
 

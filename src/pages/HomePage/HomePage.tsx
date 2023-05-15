@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams, useHistory, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { getStories, selectors as storiesSelectors } from '../../store/storiesSlice';
 import NewsList from '../../components/NewsList/NewsList';
@@ -9,6 +9,7 @@ import { Item } from '../../types/index';
 import { useInterval } from '../../hooks';
 import { REFRESH_RATE, NEWS_PER_PAGE } from '../../constants';
 import Pagination from '../../components/Pagination/Pagination';
+import { getIndexesForPage } from '../../utils';
 
 const HomePage = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -36,6 +37,8 @@ const HomePage = (): JSX.Element => {
 
   const stories = useAppSelector(storiesSelectors.selectAll) as Item[];
   stories.sort((a: Item, b: Item): -1 | 1 => a.time > b.time ? -1 : 1);
+  const [start, end] = getIndexesForPage(pageNumber);
+  const storiesToShow = stories.slice(start, end);
 
   const refreshStories = async () => {
     dispatch(getStories(pageNumber));
@@ -48,7 +51,7 @@ const HomePage = (): JSX.Element => {
 
   return (
     <>
-      {loadingStatus === 'loading' && ids.length !== NEWS_PER_PAGE
+      {loadingStatus === 'loading' && ids.length !== NEWS_PER_PAGE * pageNumber
         ? <Spinner />
         :
         <>
@@ -63,7 +66,7 @@ const HomePage = (): JSX.Element => {
               ? 'Refreshing ...'
               : 'Refresh stories'}
           </button>
-          <NewsList stories={stories} pageNumber={pageNumber} />
+          <NewsList stories={storiesToShow} pageNumber={pageNumber} />
           <Pagination pageNumber={pageNumber}/>
         </>
       }

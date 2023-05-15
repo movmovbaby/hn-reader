@@ -8,7 +8,7 @@ import { fetchItems, fetchItem } from '../../api/hn-api';
 import styles from './Story.module.css';
 import { Item } from '../../types/index';
 
-type StoryProps = {
+interface StoryProps {
   story: Item;
 };
 

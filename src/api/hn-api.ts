@@ -13,12 +13,19 @@ export const fetchItems = async (ids: Id[]): Promise<Item[]> => {
   return stories;
 };
 
+export const fetchIds = async (): Promise<Id[]> => {
+  const response = await fetch(routes.topStoriesPath());
+  const ids = await response.json();
+  return ids.slice(0, 100);
+};
+
 export const fetchItemsForPage = async (
   pageNumber: number
 ): Promise<Item[]> => {
   const response = await fetch(routes.topStoriesPath());
   const [start, end] = getIndexesForPage(pageNumber);
-  const ids = (await response.json()).slice(start, end);
-  const stories = await fetchItems(ids);
+  const ids = await response.json();
+  const idsToStore = ids.slice(start, end);
+  const stories = await fetchItems(idsToStore);
   return stories;
 };

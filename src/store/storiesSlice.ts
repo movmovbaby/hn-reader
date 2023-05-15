@@ -3,7 +3,7 @@ import {
   createSlice,
   createEntityAdapter,
 } from "@reduxjs/toolkit";
-import { fetchItemsForPage, fetchItem } from "../api/hn-api";
+import { fetchItemsForPage, fetchItem, fetchIds } from "../api/hn-api";
 import { Id, Item } from "../types/index";
 import { RootState } from "./index";
 
@@ -23,6 +23,14 @@ export const getStoryById = createAsyncThunk<Item, Id>(
   }
 );
 
+export const getIds = createAsyncThunk(
+  "stories/getIds",
+  async (): Promise<Id[]> => {
+    const ids: Id[] = await fetchIds();
+    return ids;
+  }
+);
+
 const storiesAdapter = createEntityAdapter<Item>();
 
 const storiesSlice = createSlice({
@@ -34,7 +42,7 @@ const storiesSlice = createSlice({
   reducers: {
     addStory: storiesAdapter.addOne,
     updateStory: storiesAdapter.updateOne,
-    addStories: storiesAdapter.setAll,
+    addStories: storiesAdapter.addMany,
   },
   extraReducers: (builder) => {
     builder
@@ -44,7 +52,7 @@ const storiesSlice = createSlice({
       })
       .addCase(getStories.fulfilled, (state, action) => {
         state.loadingStatus = "idle";
-        storiesAdapter.setAll(state, action.payload);
+        storiesAdapter.addMany(state, action.payload);
       })
       .addCase(getStoryById.pending, (state) => {
         state.loadingStatus = "loading";
@@ -54,6 +62,10 @@ const storiesSlice = createSlice({
         state.loadingStatus = "idle";
         storiesAdapter.addOne(state, action.payload);
       });
+    // .addCase(getIds.fulfilled, (state, action) => {
+    //   state.loadingStatus = "idle";
+    //   storiesAdapter.setAll(state, action.payload);
+    // });
   },
 });
 

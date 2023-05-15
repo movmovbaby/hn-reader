@@ -5,7 +5,7 @@ import styles from './NewsList.module.css';
 import { Item } from '../../types/index';
 import { NEWS_PER_PAGE } from '../../constants';
 
-type NewsListProps = {
+interface NewsListProps {
   stories: Item[];
   pageNumber: number;
 }
