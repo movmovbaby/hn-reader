@@ -56,7 +56,7 @@ const Story = ({ story }: StoryProps): JSX.Element => {
               : <small className={styles['small-text']}>{descendants} comments</small>}
           </div>
           {linkToOriginalPost &&
-            <span className={styles['small-text']}>link to original post&nbsp;<a href={url} className={styles['small-link']}>{linkToOriginalPost.hostname}</a></span>
+            <span className={styles['small-text']}>link to original post&nbsp;<a href={url} target="_blank" className={styles['small-link']}>{linkToOriginalPost.hostname}</a></span>
           }
         </div>
         {text &&

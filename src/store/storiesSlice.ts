@@ -40,9 +40,7 @@ const storiesSlice = createSlice({
     error: null,
   }),
   reducers: {
-    addStory: storiesAdapter.addOne,
     updateStory: storiesAdapter.updateOne,
-    addStories: storiesAdapter.addMany,
   },
   extraReducers: (builder) => {
     builder
