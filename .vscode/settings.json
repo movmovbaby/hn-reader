@@ -6,16 +6,17 @@
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "javascript.format.semicolons": "insert",
-  "javascript.inlayHints.functionLikeReturnTypes.enabled": true,
+  "javascript.inlayHints.functionLikeReturnTypes.enabled": false,
   "javascript.inlayHints.enumMemberValues.enabled": false,
-  "javascript.inlayHints.parameterNames.enabled": "all",
-  "javascript.inlayHints.parameterTypes.enabled": true,
-  "javascript.inlayHints.variableTypes.enabled": true,
+  "javascript.inlayHints.parameterNames.enabled": "none",
+  "javascript.inlayHints.parameterTypes.enabled": false,
+  "javascript.inlayHints.variableTypes.enabled": false,
   "typescript.disableAutomaticTypeAcquisition": true,
   "typescript.experimental.tsserver.web.enableProjectWideIntellisense": true,
   "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
   "typescript.inlayHints.parameterTypes.enabled": true,
   "typescript.inlayHints.propertyDeclarationTypes.enabled": false,
   "typescript.inlayHints.variableTypes.enabled": false,
-  "typescript.format.semicolons": "insert"
+  "typescript.format.semicolons": "insert",
+  "javascript.inlayHints.propertyDeclarationTypes.enabled": false
 }
