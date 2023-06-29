@@ -2,16 +2,9 @@ import { Id, Item } from "../types/index";
 import routes from "../routes";
 import { getIndexesForPage } from "../utils";
 
-const cache = new Map();
-
 export const fetchItem = async (id: Id): Promise<Item> => {
-  if (cache.has(id)) {
-    return cache.get(id);
-  }
-
   const response = await fetch(routes.storyPath(id));
   const story: Item = await response.json();
-  cache.set(id, story);
   return story;
 };
 
